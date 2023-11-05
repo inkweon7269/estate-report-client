@@ -1,15 +1,14 @@
-import { Button, Form, message, Typography } from 'antd';
-import * as yup from 'yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { setCookie } from 'cookies-next';
-import { useLoginMutation } from '@/store/apis/userApi';
+import { Button, Form, message, Typography } from 'antd';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+import { useJoinMutation } from '@/store/apis/userApi';
+import * as yup from 'yup';
 import cookies from 'next-cookies';
 import { USER_SCHEMA } from '@/schemas';
-import { LoginType } from '@/types';
-import LoginWrap from '@/components/organisms/LoginWrap';
+import { JoinType } from '@/types';
+import { GetServerSideProps } from 'next';
+import JoinWrap from '@/components/organisms/JoinWrap';
 import Link from 'next/link';
 
 const { Title } = Typography;
@@ -17,23 +16,23 @@ const { Title } = Typography;
 const schema = yup.object().shape({
     email: USER_SCHEMA.email,
     password: USER_SCHEMA.password,
+    passwordChk: USER_SCHEMA.passwordChk,
 });
 
-const Index = () => {
+const Join = () => {
     const router = useRouter();
 
-    const form = useForm<LoginType>({
+    const form = useForm<JoinType>({
         resolver: yupResolver(schema),
     });
     const { handleSubmit } = form;
 
-    const [login] = useLoginMutation();
-    const onSubmit: SubmitHandler<LoginType> = async (body) => {
+    const [join] = useJoinMutation();
+    const onSubmit: SubmitHandler<JoinType> = async (body) => {
         try {
-            const data = await login(body).unwrap();
-            await setCookie('esToken', data.token);
-            await message.success('로그인되었습니다.');
-            await router.push('/report');
+            await join(body).unwrap();
+            await message.success('회원가입되었습니다.');
+            await router.push('/');
         } catch (e: any) {
             message.warning(e.data.message);
         }
@@ -42,22 +41,21 @@ const Index = () => {
     return (
         <FormProvider {...form}>
             <Form onFinish={handleSubmit(onSubmit)}>
-                <Title level={3}>로그인</Title>
-
-                <LoginWrap />
+                <Title level={3}>회원가입</Title>
+                <JoinWrap />
 
                 <Button type="primary" htmlType="submit" block>
-                    로그인
+                    회원가입
                 </Button>
             </Form>
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                <Link href="/join">회원가입</Link>
+                <Link href="/">로그인</Link>
             </div>
         </FormProvider>
     );
 };
 
-export default Index;
+export default Join;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const allCookies = cookies(context);
