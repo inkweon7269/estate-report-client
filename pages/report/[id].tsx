@@ -4,7 +4,7 @@ import cookies from 'next-cookies';
 import { useDeleteReportMutation, useFetchReportQuery, useUpdateReportMutation } from '@/store/apis/reportApi';
 import { useRouter } from 'next/router';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import { Button, Form, message } from 'antd';
+import { Button, Form, message, Spin } from 'antd';
 import ReportScoreWrap from '@/components/organisms/ReportScoreWrap';
 import { ReportScoreType } from '@/types';
 import * as yup from 'yup';
@@ -65,6 +65,10 @@ const Detail = ({ id }: { id: string }) => {
             console.log(error);
         }
     };
+
+    if (isLoading) {
+        return <Spin />;
+    }
 
     return (
         <FormProvider {...form}>

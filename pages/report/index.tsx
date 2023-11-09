@@ -4,12 +4,28 @@ import { useFetchReportListsQuery } from '@/store/apis/reportApi';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Button } from 'antd';
+import { Button, Pagination, Spin } from 'antd';
 import CardApart from '@/components/organisms/CardApart';
+import { createQuery } from '@/utils/common';
 
-const Index = () => {
+interface IPropsPage {
+    params: {
+        page: number;
+        limit: number;
+    };
+}
+
+const Index = ({ params }: IPropsPage) => {
     const router = useRouter();
-    const { data, isLoading } = useFetchReportListsQuery({ page: 1, limit: 30 });
+    const { data, isLoading } = useFetchReportListsQuery(params);
+
+    if (isLoading) {
+        return <Spin />;
+    }
+
+    const onPaginationChange = (page = 1, limit = 30) => {
+        router.push(`${router.pathname}?` + createQuery({ ...params, page, limit }));
+    };
 
     return (
         <div>
@@ -18,7 +34,7 @@ const Index = () => {
             </Button>
 
             <ul>
-                {data?.list?.map((item: any) => (
+                {data.list.map((item: any) => (
                     <li key={item.id} style={{ marginBottom: 25 }}>
                         <Link href={`/report/${item.id}`}>
                             <CardApart apart={item.apart} score={item.totalScore} />
@@ -26,6 +42,14 @@ const Index = () => {
                     </li>
                 ))}
             </ul>
+
+            <Pagination
+                defaultCurrent={params.page}
+                defaultPageSize={params.limit}
+                current={params.page}
+                total={data.totalResult}
+                onChange={onPaginationChange}
+            />
         </div>
     );
 };
@@ -35,6 +59,10 @@ export default Index;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const allCookies = cookies(context);
     const token = allCookies.esToken;
+    const params = {
+        page: context.query.page ? +context.query.page : 1,
+        limit: context.query.limit ? +context.query.limit : 30,
+    };
 
     if (!token) {
         return {
@@ -46,6 +74,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     return {
-        props: {},
+        props: {
+            params,
+        },
     };
 };
