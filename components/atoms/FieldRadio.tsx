@@ -4,12 +4,13 @@ import { Controller } from 'react-hook-form';
 
 export interface IPropsRadio {
     label: string;
-    control: any;
     name: string;
+    control: any;
     options: { value: string | number; label: string | React.ReactNode; disabled?: boolean }[];
+    style?: any;
 }
 
-const FieldRadio = ({ label, options, ...rest }: IPropsRadio) => {
+const FieldRadio = ({ label, options, style, ...rest }: IPropsRadio) => {
     return (
         <div>
             <label>{label}</label>
@@ -21,6 +22,7 @@ const FieldRadio = ({ label, options, ...rest }: IPropsRadio) => {
                         <Radio.Group
                             {...field}
                             options={options}
+                            style={style}
                             // className={fieldState.invalid ? 'custom-input error' : 'custom-input'}
                         />
                     );

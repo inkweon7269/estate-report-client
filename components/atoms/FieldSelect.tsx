@@ -4,10 +4,10 @@ import { Select } from 'antd';
 
 export interface IPropsSelect {
     label: string;
-    control: any;
     name: string;
+    control: any;
     placeholder?: string;
-    options: { value: string | number; label: string | React.ReactNode; disabled?: boolean }[];
+    options: { value: string | number | boolean | null; label: string | React.ReactNode; disabled?: boolean }[];
     style?: any;
     onChange?: (data: any) => void;
 }

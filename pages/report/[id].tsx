@@ -1,7 +1,13 @@
 import React, { useEffect } from 'react';
 import { GetServerSideProps } from 'next';
 import cookies from 'next-cookies';
-import { useDeleteReportMutation, useFetchReportQuery, useUpdateReportMutation } from '@/store/apis/reportApi';
+import {
+    useAddLikeMutation,
+    useDeleteLikeMutation,
+    useDeleteReportMutation,
+    useFetchReportQuery,
+    useUpdateReportMutation,
+} from '@/store/apis/reportApi';
 import { useRouter } from 'next/router';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { Button, Form, message, Spin } from 'antd';
@@ -46,6 +52,12 @@ const Detail = ({ id }: { id: string }) => {
 
     const [editReport] = useUpdateReportMutation();
     const [deleteReport] = useDeleteReportMutation();
+    const [addLike] = useAddLikeMutation();
+    const [deleteLike] = useDeleteLikeMutation();
+
+    if (isLoading) {
+        return <Spin />;
+    }
 
     const onSubmit: SubmitHandler<ReportScoreType> = async (body: any) => {
         try {
@@ -57,7 +69,7 @@ const Detail = ({ id }: { id: string }) => {
         }
     };
 
-    const onClickDelete = async () => {
+    const onDeleteReport = async () => {
         try {
             await deleteReport(id).unwrap();
             await router.push('/report');
@@ -66,21 +78,44 @@ const Detail = ({ id }: { id: string }) => {
         }
     };
 
-    if (isLoading) {
-        return <Spin />;
-    }
+    const onAddLike = async (reportId: number) => {
+        const body = { reportId };
+        try {
+            await addLike(body).unwrap();
+            await message.success('즐겨찾기에 추가했습니다.');
+        } catch (e: any) {
+            message.warning(e.data.message);
+        }
+    };
+
+    const onDeleteLike = async (reportId: number) => {
+        const body = { reportId };
+        try {
+            await deleteLike(body).unwrap();
+            await message.success('즐겨찾기에 삭제했습니다.');
+        } catch (e: any) {
+            message.warning(e.data.message);
+        }
+    };
 
     return (
         <FormProvider {...form}>
             <Form onFinish={form.handleSubmit(onSubmit)}>
                 <div style={{ marginBottom: 25 }}>
-                    <CardApart apart={data.apart} score={data.totalScore} />
+                    <CardApart
+                        id={Number(id)}
+                        apart={data.apart}
+                        totalScore={data.totalScore}
+                        isLike={data.isLike}
+                        onAddLike={onAddLike}
+                        onDeleteLike={onDeleteLike}
+                    />
                 </div>
                 <ReportScoreWrap />
                 <Button type="primary" htmlType="submit" block>
                     수정
                 </Button>
-                <Button type="primary" danger={true} htmlType="button" block onClick={onClickDelete}>
+                <Button type="primary" danger={true} htmlType="button" block onClick={onDeleteReport}>
                     삭제
                 </Button>
             </Form>

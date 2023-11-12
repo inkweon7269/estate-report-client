@@ -72,6 +72,26 @@ const reportApi = createApi({
                 },
                 invalidatesTags: ['Report'],
             }),
+            addLike: build.mutation({
+                query: (body) => {
+                    return {
+                        url: `/v1/like`,
+                        method: 'POST',
+                        body,
+                    };
+                },
+                invalidatesTags: (result, error, arg) => [{ type: 'Report' }, { type: 'Report', id: arg.id }],
+            }),
+            deleteLike: build.mutation({
+                query: (body) => {
+                    return {
+                        url: `/v1/like`,
+                        method: 'DELETE',
+                        body,
+                    };
+                },
+                invalidatesTags: (result, error, arg) => [{ type: 'Report' }, { type: 'Report', id: arg.id }],
+            }),
         };
     },
 });
@@ -82,5 +102,8 @@ export const {
     useAddReportMutation,
     useUpdateReportMutation,
     useDeleteReportMutation,
+
+    useAddLikeMutation,
+    useDeleteLikeMutation,
 } = reportApi;
 export { reportApi };
