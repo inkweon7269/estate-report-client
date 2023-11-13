@@ -17,8 +17,6 @@ import * as yup from 'yup';
 import { REPORT_SCHEMA } from '@/schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CardApart from '@/components/organisms/CardApart';
-import Link from 'next/link';
-import { ArrowLeftOutlined } from '@ant-design/icons';
 
 const schema = yup.object().shape({
     space: REPORT_SCHEMA.score,
@@ -102,12 +100,6 @@ const Detail = ({ id }: { id: string }) => {
 
     return (
         <FormProvider {...form}>
-            <Link href="/report">
-                <div style={{ fontSize: 25, color: '#222222' }}>
-                    <ArrowLeftOutlined />
-                </div>
-            </Link>
-
             <Form onFinish={form.handleSubmit(onSubmit)}>
                 <div style={{ marginBottom: 25 }}>
                     <CardApart

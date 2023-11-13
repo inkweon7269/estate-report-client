@@ -35,8 +35,10 @@ const CardApart = ({ id, apart, totalScore, isLike, onAddLike, onDeleteLike }: I
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {isLike ? (
                     <Button
+                        htmlType="button"
                         danger
                         ghost
+                        type="primary"
                         onClick={(e) => {
                             e.preventDefault();
                             onDeleteLike(id);
@@ -46,8 +48,8 @@ const CardApart = ({ id, apart, totalScore, isLike, onAddLike, onDeleteLike }: I
                     </Button>
                 ) : (
                     <Button
+                        htmlType="button"
                         type="primary"
-                        ghost
                         onClick={(e) => {
                             e.preventDefault();
                             onAddLike(id);
