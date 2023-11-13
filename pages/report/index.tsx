@@ -60,13 +60,9 @@ const Index = ({ params }: IPropsPage) => {
 
     return (
         <div>
-            <Button block type="primary" onClick={() => router.push('/report/add')}>
-                신규 보고서 생성
-            </Button>
-
-            <Field>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <FieldSelect
-                    label="필터"
+                    label=""
                     control={form.control}
                     name="isLike"
                     options={[
@@ -74,9 +70,13 @@ const Index = ({ params }: IPropsPage) => {
                         { label: '즐겨찾기만 보기', value: true },
                     ]}
                     onChange={onFilter}
-                    style={{ width: 200 }}
+                    style={{ width: 140 }}
                 />
-            </Field>
+
+                <Button type="primary" onClick={() => router.push('/report/add')}>
+                    신규 보고서 생성
+                </Button>
+            </div>
 
             <ul>
                 {data.list.map((item: any) => (
