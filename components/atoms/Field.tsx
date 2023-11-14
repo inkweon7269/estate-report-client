@@ -1,19 +1,12 @@
 import React, { ReactNode } from 'react';
 
-export interface FieldWrapProps {
+export interface IPropsField {
     mb?: number;
-    children: ReactNode,
+    children: ReactNode;
 }
 
-const Field = ({
-                       mb = 15,
-                       children,
-                   }: FieldWrapProps) => {
-    return (
-        <div style={{ marginBottom: mb }}>
-            {children}
-        </div>
-    );
+const Field = ({ mb = 15, children }: IPropsField) => {
+    return <div style={{ marginBottom: mb }}>{children}</div>;
 };
 
 export default Field;

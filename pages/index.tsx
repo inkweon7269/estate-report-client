@@ -41,17 +41,21 @@ const Index = () => {
 
     return (
         <FormProvider {...form}>
-            <Form onFinish={handleSubmit(onSubmit)}>
-                <Title level={3}>로그인</Title>
+            <div style={{ padding: '80px 15px 0 15px' }}>
+                <Form onFinish={handleSubmit(onSubmit)}>
+                    <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                        <Title level={3}>로그인</Title>
+                    </div>
 
-                <LoginWrap />
+                    <LoginWrap />
 
-                <Button type="primary" htmlType="submit" block>
-                    로그인
-                </Button>
-            </Form>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                <Link href="/join">회원가입</Link>
+                    <Button type="primary" htmlType="submit" block>
+                        로그인
+                    </Button>
+                </Form>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
+                    <Link href="/join">회원가입</Link>
+                </div>
             </div>
         </FormProvider>
     );

@@ -4,12 +4,11 @@ import { useAddLikeMutation, useDeleteLikeMutation, useFetchReportListsQuery } f
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { Button, message, Pagination, Spin } from 'antd';
+import { message, Spin } from 'antd';
 import CardApart from '@/components/organisms/CardApart';
-import { createQuery } from '@/utils/common';
-import Field from '@/components/atoms/Field';
-import FieldSelect from '@/components/atoms/FieldSelect';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
+import ReportFilerWrap from '@/components/organisms/report/ReportFilerWrap';
+import PaginationWrap from '@/components/organisms/PaginationWrap';
 
 interface IPropsPage {
     params: {
@@ -19,7 +18,6 @@ interface IPropsPage {
 }
 
 const Index = ({ params }: IPropsPage) => {
-    const router = useRouter();
     const form = useForm();
 
     const { data, isLoading } = useFetchReportListsQuery(params);
@@ -29,14 +27,6 @@ const Index = ({ params }: IPropsPage) => {
     if (isLoading) {
         return <Spin />;
     }
-
-    const onFilter = (isLike: boolean) => {
-        router.push(`${router.pathname}?` + createQuery({ page: 1, limit: 30, isLike }));
-    };
-
-    const onPaginationChange = (page = 1, limit = 30) => {
-        router.push(`${router.pathname}?` + createQuery({ ...params, page, limit }));
-    };
 
     const onAddLike = async (reportId: number) => {
         const body = { reportId };
@@ -59,50 +49,32 @@ const Index = ({ params }: IPropsPage) => {
     };
 
     return (
-        <div>
-            <Button block type="primary" onClick={() => router.push('/report/add')}>
-                신규 보고서 생성
-            </Button>
+        <FormProvider {...form}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+                <ReportFilerWrap />
 
-            <Field>
-                <FieldSelect
-                    label="필터"
-                    control={form.control}
-                    name="isLike"
-                    options={[
-                        { label: '전체', value: null },
-                        { label: '즐겨찾기만 보기', value: true },
-                    ]}
-                    onChange={onFilter}
-                    style={{ width: 200 }}
-                />
-            </Field>
+                <div style={{ overflowY: 'auto', height: '100%', padding: '0 15px' }}>
+                    <ul>
+                        {data.list.map((item: any) => (
+                            <li key={item.id} style={{ marginBottom: 25 }}>
+                                <Link href={`/report/${item.id}`}>
+                                    <CardApart
+                                        id={item.id}
+                                        apart={item.apart}
+                                        totalScore={item.totalScore}
+                                        isLike={item.isLike}
+                                        onAddLike={onAddLike}
+                                        onDeleteLike={onDeleteLike}
+                                    />
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-            <ul>
-                {data.list.map((item: any) => (
-                    <li key={item.id} style={{ marginBottom: 25 }}>
-                        <Link href={`/report/${item.id}`}>
-                            <CardApart
-                                id={item.id}
-                                apart={item.apart}
-                                totalScore={item.totalScore}
-                                isLike={item.isLike}
-                                onAddLike={onAddLike}
-                                onDeleteLike={onDeleteLike}
-                            />
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-
-            <Pagination
-                defaultCurrent={params.page}
-                defaultPageSize={params.limit}
-                current={params.page}
-                total={data.totalResult}
-                onChange={onPaginationChange}
-            />
-        </div>
+                <PaginationWrap params={params} totalResult={data.totalResult} />
+            </div>
+        </FormProvider>
     );
 };
 

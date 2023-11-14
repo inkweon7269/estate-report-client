@@ -11,7 +11,7 @@ import {
 import { useRouter } from 'next/router';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { Button, Form, message, Spin } from 'antd';
-import ReportScoreWrap from '@/components/organisms/ReportScoreWrap';
+import ReportScoreWrap from '@/components/organisms/report/ReportScoreWrap';
 import { ReportScoreType } from '@/types';
 import * as yup from 'yup';
 import { REPORT_SCHEMA } from '@/schemas';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Field from '@/components/atoms/Field';
 import FieldRadio from '@/components/atoms/FieldRadio';
 import { useFormContext } from 'react-hook-form';

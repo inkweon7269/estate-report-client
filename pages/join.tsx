@@ -40,16 +40,21 @@ const Join = () => {
 
     return (
         <FormProvider {...form}>
-            <Form onFinish={handleSubmit(onSubmit)}>
-                <Title level={3}>회원가입</Title>
-                <JoinWrap />
+            <div style={{ padding: '80px 15px 0 15px' }}>
+                <Form onFinish={handleSubmit(onSubmit)}>
+                    <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                        <Title level={3}>회원가입</Title>
+                    </div>
 
-                <Button type="primary" htmlType="submit" block>
-                    회원가입
-                </Button>
-            </Form>
-            <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
-                <Link href="/">로그인</Link>
+                    <JoinWrap />
+
+                    <Button type="primary" htmlType="submit" block>
+                        회원가입
+                    </Button>
+                </Form>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 15 }}>
+                    <Link href="/">로그인</Link>
+                </div>
             </div>
         </FormProvider>
     );

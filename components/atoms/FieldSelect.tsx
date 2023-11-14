@@ -12,7 +12,7 @@ export interface IPropsSelect {
     onChange?: (data: any) => void;
 }
 
-const FieldSelect = ({ label, control, name, options, style, onChange }: IPropsSelect) => {
+const FieldSelect = ({ label, control, name, options, placeholder, style, onChange }: IPropsSelect) => {
     return (
         <div>
             <label>{label}</label>
@@ -24,6 +24,7 @@ const FieldSelect = ({ label, control, name, options, style, onChange }: IPropsS
                         <Select
                             {...field}
                             options={options}
+                            placeholder={placeholder}
                             style={style}
                             onChange={(e) => {
                                 if (onChange) {

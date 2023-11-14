@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import { createGlobalStyle } from 'styled-components';
 import { colors } from '@/styles/variables';
+import MobileWrap from '@/components/atoms/MobileWrap';
 
 const theme: any = {
     token: {
@@ -22,6 +23,10 @@ export default function App({ Component, pageProps }: AppProps) {
       a {
         text-decoration: none;
       }
+      
+      ul {
+        list-style: none;
+      }
 
       /*
       .custom-input {
@@ -36,7 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <Provider store={store}>
             <ConfigProvider theme={theme}>
                 <GlobalStyle />
-                <Component {...pageProps} />
+                <MobileWrap>
+                    <Component {...pageProps} />
+                </MobileWrap>
             </ConfigProvider>
         </Provider>
     );

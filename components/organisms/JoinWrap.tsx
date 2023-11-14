@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginWrap from '@/components/organisms/LoginWrap';
 import FieldInput from '@/components/atoms/FieldInput';
 import FieldErrorMsg from '@/components/atoms/FieldErrorMsg';
@@ -16,7 +15,13 @@ const JoinWrap = () => {
             <LoginWrap />
 
             <Field mb={25}>
-                <FieldInput type="password" label="비밀번호 확인" name="passwordChk" control={control} />
+                <FieldInput
+                    type="password"
+                    label="비밀번호 확인"
+                    name="passwordChk"
+                    placeholder="비밀번호 확인"
+                    control={control}
+                />
 
                 {errors?.passwordChk && <FieldErrorMsg message={errors.passwordChk.message} />}
             </Field>
