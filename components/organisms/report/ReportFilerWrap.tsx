@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { createQuery } from '@/utils/common';
+import { colors } from '@/styles/variables';
 
 const ReportFilerWrap = () => {
     const { control } = useFormContext();
@@ -18,7 +19,7 @@ const ReportFilerWrap = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                background: '#ffffff',
+                background: colors.white,
                 padding: '10px 15px',
             }}
         >

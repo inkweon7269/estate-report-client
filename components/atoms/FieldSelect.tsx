@@ -1,21 +1,21 @@
-import React from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { Controller } from 'react-hook-form';
 import { Select } from 'antd';
 
 export interface IPropsSelect {
-    label: string;
+    label?: string;
     name: string;
     control: any;
     placeholder?: string;
-    options: { value: string | number | boolean | null; label: string | React.ReactNode; disabled?: boolean }[];
-    style?: any;
+    options: { value: string | number | boolean | null; label: string | ReactNode; disabled?: boolean }[];
+    style?: CSSProperties;
     onChange?: (data: any) => void;
 }
 
 const FieldSelect = ({ label, control, name, options, placeholder, style, onChange }: IPropsSelect) => {
     return (
         <div>
-            <label>{label}</label>
+            {label ? <label>{label}</label> : null}
             <Controller
                 control={control}
                 name={name}

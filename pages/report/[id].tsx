@@ -10,13 +10,18 @@ import {
 } from '@/store/apis/reportApi';
 import { useRouter } from 'next/router';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import { Button, Form, message, Spin } from 'antd';
+import { Button, Flex, Form, message, Modal, Spin } from 'antd';
 import ReportScoreWrap from '@/components/organisms/report/ReportScoreWrap';
 import { ReportScoreType } from '@/types';
 import * as yup from 'yup';
 import { REPORT_SCHEMA } from '@/schemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import CardApart from '@/components/organisms/CardApart';
+import Link from 'next/link';
+import { ArrowLeftOutlined, ExclamationCircleFilled } from '@ant-design/icons';
+import { colors } from '@/styles/variables';
+
+const { confirm } = Modal;
 
 const schema = yup.object().shape({
     space: REPORT_SCHEMA.score,
@@ -70,12 +75,26 @@ const Detail = ({ id }: { id: string }) => {
     };
 
     const onDeleteReport = async () => {
-        try {
-            await deleteReport(id).unwrap();
-            await router.push('/report');
-        } catch (error) {
-            console.log(error);
-        }
+        confirm({
+            title: '보고서 삭제',
+            icon: <ExclamationCircleFilled />,
+            content: '정말 삭제하겠습니까?',
+            okText: '네',
+            okType: 'danger',
+            cancelText: '아니오',
+            async onOk() {
+                try {
+                    await deleteReport(id).unwrap();
+                    await message.success('보고서를 삭제했습니다.');
+                    await router.push('/report');
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
     };
 
     const onAddLike = async (reportId: number) => {
@@ -100,24 +119,38 @@ const Detail = ({ id }: { id: string }) => {
 
     return (
         <FormProvider {...form}>
-            <Form onFinish={form.handleSubmit(onSubmit)}>
-                <div style={{ marginBottom: 25 }}>
-                    <CardApart
-                        id={Number(id)}
-                        apart={data.apart}
-                        totalScore={data.totalScore}
-                        isLike={data.isLike}
-                        onAddLike={onAddLike}
-                        onDeleteLike={onDeleteLike}
-                    />
-                </div>
-                <ReportScoreWrap />
-                <Button type="primary" htmlType="submit" block>
-                    수정
-                </Button>
-                <Button type="primary" danger={true} htmlType="button" block onClick={onDeleteReport}>
-                    삭제
-                </Button>
+            <Form onFinish={form.handleSubmit(onSubmit)} style={{ height: '100%' }}>
+                <Flex vertical={true} justify="space-between" style={{ height: '100%' }}>
+                    <div style={{ padding: 15 }}>
+                        <Link href="/report" style={{ fontSize: 15 }}>
+                            <ArrowLeftOutlined />
+                        </Link>
+                    </div>
+
+                    <div style={{ overflowY: 'scroll', padding: '0 15px' }}>
+                        <div style={{ marginBottom: 25 }}>
+                            <CardApart
+                                id={Number(id)}
+                                apart={data.apart}
+                                totalScore={data.totalScore}
+                                isLike={data.isLike}
+                                onAddLike={onAddLike}
+                                onDeleteLike={onDeleteLike}
+                            />
+                        </div>
+                        <ReportScoreWrap />
+                    </div>
+
+                    <Flex justify="space-between" gap={15} style={{ background: colors.white }}>
+                        <Button type="primary" danger={true} htmlType="button" block onClick={onDeleteReport}>
+                            삭제
+                        </Button>
+
+                        <Button type="primary" htmlType="submit" block>
+                            수정
+                        </Button>
+                    </Flex>
+                </Flex>
             </Form>
         </FormProvider>
     );

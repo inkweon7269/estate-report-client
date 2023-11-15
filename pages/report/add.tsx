@@ -1,4 +1,4 @@
-import { Button, Form, message } from 'antd';
+import { Button, Flex, Form, message } from 'antd';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { useAddReportMutation } from '@/store/apis/reportApi';
 import { useRouter } from 'next/router';
@@ -10,6 +10,8 @@ import { ReportAreaType, ReportScoreType } from '@/types';
 import { REPORT_SCHEMA } from '@/schemas';
 import { GetServerSideProps } from 'next';
 import cookies from 'next-cookies';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import Link from 'next/link';
 
 type Inputs = ReportAreaType & ReportScoreType;
 
@@ -57,13 +59,23 @@ const Add = () => {
 
     return (
         <FormProvider {...form}>
-            <Form onFinish={form.handleSubmit(onSubmit)}>
-                <ReportAreaWrap />
-                <ReportScoreWrap />
+            <Form onFinish={form.handleSubmit(onSubmit)} style={{ height: '100%' }}>
+                <Flex vertical={true} justify="space-between" style={{ height: '100%' }}>
+                    <div style={{ padding: 15 }}>
+                        <Link href="/report" style={{ fontSize: 15 }}>
+                            <ArrowLeftOutlined />
+                        </Link>
+                    </div>
 
-                <Button type="primary" htmlType="submit" block>
-                    저장
-                </Button>
+                    <div style={{ overflowY: 'scroll', padding: '0 15px' }}>
+                        <ReportAreaWrap />
+                        <ReportScoreWrap />
+                    </div>
+
+                    <Button type="primary" htmlType="submit" block>
+                        저장
+                    </Button>
+                </Flex>
             </Form>
         </FormProvider>
     );

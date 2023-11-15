@@ -1,4 +1,4 @@
-import React from 'react';
+import { CSSProperties } from 'react';
 import { Controller } from 'react-hook-form';
 import { Input } from 'antd';
 const { TextArea } = Input;
@@ -7,10 +7,10 @@ export interface IPropsTextArea {
     label: string;
     name: string;
     control: any;
-    type?: string;
+    style?: CSSProperties;
 }
 
-const FieldTextArea = ({ label, name, control }: IPropsTextArea) => {
+const FieldTextArea = ({ label, name, control, style }: IPropsTextArea) => {
     return (
         <div>
             <label>{label}</label>
@@ -18,7 +18,7 @@ const FieldTextArea = ({ label, name, control }: IPropsTextArea) => {
                 control={control}
                 name={name}
                 render={({ field, fieldState }) => {
-                    return <TextArea {...field} rows={4} />;
+                    return <TextArea {...field} rows={4} style={style} />;
                 }}
             />
         </div>

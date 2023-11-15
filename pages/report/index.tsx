@@ -52,7 +52,6 @@ const Index = ({ params }: IPropsPage) => {
         <FormProvider {...form}>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
                 <ReportFilerWrap />
-
                 <div style={{ overflowY: 'auto', height: '100%', padding: '0 15px' }}>
                     <ul>
                         {data.list.map((item: any) => (

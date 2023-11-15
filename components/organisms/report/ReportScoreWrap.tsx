@@ -235,7 +235,7 @@ const ReportScoreWrap = () => {
             </Field>
 
             <Field>
-                <FieldTextArea label="단지 특징 (선택)" name="memo" control={control} />
+                <FieldTextArea label="단지 특징 (선택)" name="memo" control={control} style={{ resize: 'none' }} />
             </Field>
         </>
     );

@@ -1,4 +1,4 @@
-import React from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { Radio } from 'antd';
 import { Controller } from 'react-hook-form';
 
@@ -6,8 +6,8 @@ export interface IPropsRadio {
     label: string;
     name: string;
     control: any;
-    options: { value: string | number; label: string | React.ReactNode; disabled?: boolean }[];
-    style?: any;
+    options: { value: string | number; label: string | ReactNode; disabled?: boolean }[];
+    style?: CSSProperties;
 }
 
 const FieldRadio = ({ label, options, style, ...rest }: IPropsRadio) => {
