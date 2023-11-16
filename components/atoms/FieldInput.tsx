@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import { Input } from 'antd';
 
 export interface IPropsInput {
-    label: string;
+    label?: string;
     name: string;
     control: any;
     type?: string;
@@ -13,7 +13,7 @@ export interface IPropsInput {
 const FieldInput = ({ label, name, control, type = 'text', placeholder, ...rest }: IPropsInput) => {
     return (
         <div>
-            <label>{label}</label>
+            {label ? <label>{label}</label> : null}
             <Controller
                 name={name}
                 control={control}

@@ -72,7 +72,7 @@ const Add = () => {
                         <ReportScoreWrap />
                     </div>
 
-                    <Button type="primary" htmlType="submit" block>
+                    <Button type="primary" htmlType="submit" block style={{ borderRadius: 0 }}>
                         저장
                     </Button>
                 </Flex>

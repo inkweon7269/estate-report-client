@@ -1,5 +1,5 @@
 import FieldSelect from '@/components/atoms/FieldSelect';
-import { Button } from 'antd';
+import { Button, Flex } from 'antd';
 import { useFormContext } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { createQuery } from '@/utils/common';
@@ -14,15 +14,7 @@ const ReportFilerWrap = () => {
     };
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                background: colors.white,
-                padding: '10px 15px',
-            }}
-        >
+        <Flex justify="space-between" align="center" style={{ background: colors.white, padding: '10px 15px' }}>
             <FieldSelect
                 label=""
                 control={control}
@@ -39,7 +31,7 @@ const ReportFilerWrap = () => {
             <Button block type="primary" onClick={() => router.push('/report/add')} style={{ width: 108 }}>
                 보고서 생성
             </Button>
-        </div>
+        </Flex>
     );
 };
 

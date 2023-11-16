@@ -4,7 +4,7 @@ import { useAddLikeMutation, useDeleteLikeMutation, useFetchReportListsQuery } f
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import { message, Spin } from 'antd';
+import { Flex, message, Spin } from 'antd';
 import CardApart from '@/components/organisms/CardApart';
 import { FormProvider, useForm } from 'react-hook-form';
 import ReportFilerWrap from '@/components/organisms/report/ReportFilerWrap';
@@ -50,7 +50,7 @@ const Index = ({ params }: IPropsPage) => {
 
     return (
         <FormProvider {...form}>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%' }}>
+            <Flex vertical={true} justify="space-between" style={{ height: '100%' }}>
                 <ReportFilerWrap />
                 <div style={{ overflowY: 'auto', height: '100%', padding: '0 15px' }}>
                     <ul>
@@ -72,7 +72,7 @@ const Index = ({ params }: IPropsPage) => {
                 </div>
 
                 <PaginationWrap params={params} totalResult={data.totalResult} />
-            </div>
+            </Flex>
         </FormProvider>
     );
 };

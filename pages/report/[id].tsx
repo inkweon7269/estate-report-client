@@ -141,12 +141,19 @@ const Detail = ({ id }: { id: string }) => {
                         <ReportScoreWrap />
                     </div>
 
-                    <Flex justify="space-between" gap={15} style={{ background: colors.white }}>
-                        <Button type="primary" danger={true} htmlType="button" block onClick={onDeleteReport}>
+                    <Flex justify="space-between" style={{ background: colors.white }}>
+                        <Button
+                            type="primary"
+                            danger={true}
+                            htmlType="button"
+                            block
+                            onClick={onDeleteReport}
+                            style={{ borderRadius: 0 }}
+                        >
                             삭제
                         </Button>
 
-                        <Button type="primary" htmlType="submit" block>
+                        <Button type="primary" htmlType="submit" block style={{ borderRadius: 0 }}>
                             수정
                         </Button>
                     </Flex>

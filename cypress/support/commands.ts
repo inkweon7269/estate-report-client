@@ -35,3 +35,16 @@
 //     }
 //   }
 // }
+
+declare namespace Cypress {
+    interface Chainable {
+        loginToApplication(): void;
+    }
+}
+
+Cypress.Commands.add('loginToApplication', () => {
+    cy.visit('/');
+    cy.get('[name="email"]').type('in12@test.com');
+    cy.get('[name="password"]').type('xptmxm1!');
+    cy.get('form').submit();
+});

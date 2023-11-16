@@ -1,4 +1,4 @@
-import { Pagination } from 'antd';
+import { Flex, Pagination } from 'antd';
 import { useRouter } from 'next/router';
 import { createQuery } from '@/utils/common';
 import { colors } from '@/styles/variables';
@@ -15,7 +15,7 @@ const PaginationWrap = ({ params, totalResult }: IPropsPagination) => {
     };
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '15px 15px', background: colors.white }}>
+        <Flex justify="center" style={{ padding: 15, background: colors.white }}>
             <Pagination
                 defaultCurrent={params.page}
                 defaultPageSize={params.limit}
@@ -23,7 +23,7 @@ const PaginationWrap = ({ params, totalResult }: IPropsPagination) => {
                 total={totalResult}
                 onChange={onPaginationChange}
             />
-        </div>
+        </Flex>
     );
 };
 
