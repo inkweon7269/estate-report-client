@@ -2,7 +2,6 @@ import { Button, Form, message, Typography } from 'antd';
 import * as yup from 'yup';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { setCookie } from 'cookies-next';
 import { useLoginMutation } from '@/store/apis/userApi';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
@@ -11,8 +10,6 @@ import { USER_SCHEMA } from '@/schemas';
 import { LoginType } from '@/types';
 import LoginWrap from '@/components/organisms/LoginWrap';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '@/store/slices/authSlice';
 
 const { Title } = Typography;
 
@@ -30,13 +27,10 @@ const Index = () => {
     const { handleSubmit } = form;
 
     const [login] = useLoginMutation();
-    const dispatch = useDispatch();
 
     const onSubmit: SubmitHandler<LoginType> = async (body) => {
         try {
-            const userData = await login(body).unwrap();
-            console.log(userData);
-            dispatch(setCredentials({ ...userData }));
+            await login(body).unwrap();
             await message.success('로그인되었습니다.');
             await router.push('/report');
         } catch (e: any) {
