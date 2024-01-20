@@ -3,6 +3,7 @@ import configs from '@/config';
 import { logOut, setCredentials } from '@/store/slices/authSlice';
 import { RootState } from '@/store';
 import { BaseQueryApi, BaseQueryFn, FetchArgs } from '@reduxjs/toolkit/src/query';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
     baseUrl: configs.baseUrl,
@@ -40,4 +41,9 @@ const baseQueryWithReAuth: BaseQueryFn<string | FetchArgs, unknown, unknown> = a
     return result;
 };
 
-export default baseQueryWithReAuth;
+export const apiSlice = createApi({
+    reducerPath: 'api',
+    tagTypes: ['User', 'Report'],
+    baseQuery: baseQueryWithReAuth,
+    endpoints: (builder) => ({}),
+});
