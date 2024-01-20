@@ -2,26 +2,18 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import configs from '@/config';
 import { getCookie } from 'cookies-next';
+import baseQueryWithReAuth from '@/store/apis/apiSlice';
 
 const areaApi = createApi({
     reducerPath: 'area',
-    baseQuery: fetchBaseQuery({
-        baseUrl: configs.baseUrl,
-        prepareHeaders: (headers, { getState }) => {
-            const token = getCookie("esToken");
-            if (token) {
-                headers.set("authorization", `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+    baseQuery: baseQueryWithReAuth,
     endpoints(build) {
         return {
             fetchA1: build.query({
                 query: () => {
                     return {
                         url: `/v1/area/a1`,
-                        method: "GET",
+                        method: 'GET',
                     };
                 },
             }),
@@ -29,7 +21,7 @@ const areaApi = createApi({
                 query: (a1Id) => {
                     return {
                         url: `/v1/area/a1/${a1Id}`,
-                        method: "GET",
+                        method: 'GET',
                     };
                 },
             }),
@@ -37,7 +29,7 @@ const areaApi = createApi({
                 query: (a2Id) => {
                     return {
                         url: `/v1/area/a2/${a2Id}`,
-                        method: "GET",
+                        method: 'GET',
                     };
                 },
             }),
@@ -45,13 +37,13 @@ const areaApi = createApi({
                 query: (a3Id) => {
                     return {
                         url: `/v1/area/a3/${a3Id}`,
-                        method: "GET",
+                        method: 'GET',
                     };
                 },
             }),
-        }
-    }
-})
+        };
+    },
+});
 
 export const { useFetchA1Query, useFetchA2Query, useFetchA3Query, useFetchApartListsQuery } = areaApi;
-export { areaApi }
+export { areaApi };

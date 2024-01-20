@@ -2,19 +2,11 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import configs from '@/config';
 import { getCookie } from 'cookies-next';
+import baseQueryWithReAuth from '@/store/apis/apiSlice';
 
 const reportApi = createApi({
     reducerPath: 'report',
-    baseQuery: fetchBaseQuery({
-        baseUrl: configs.baseUrl,
-        prepareHeaders: (headers, { getState }) => {
-            const token = getCookie('esToken');
-            if (token) {
-                headers.set('authorization', `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+    baseQuery: baseQueryWithReAuth,
     tagTypes: ['Report'],
     endpoints(build) {
         return {

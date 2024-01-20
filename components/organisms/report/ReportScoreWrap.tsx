@@ -50,7 +50,7 @@ const ReportScoreWrap = () => {
                     control={control}
                     name="elementary"
                     options={[
-                        { label: '아', value: 10 },
+                        { label: '초품아', value: 10 },
                         { label: '초등학교 인접', value: 5 },
                         { label: '주변에 없음', value: 0 },
                     ]}

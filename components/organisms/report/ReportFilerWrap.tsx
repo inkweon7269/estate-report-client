@@ -20,7 +20,7 @@ const ReportFilerWrap = () => {
                 control={control}
                 name="isLike"
                 options={[
-                    { label: '전체', value: null },
+                    { label: '전체', value: '' },
                     { label: '즐겨찾기만 보기', value: true },
                 ]}
                 placeholder="필터"

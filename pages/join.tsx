@@ -64,7 +64,7 @@ export default Join;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const allCookies = cookies(context);
-    const token = allCookies.esToken;
+    const token = allCookies.accessToken;
 
     if (token) {
         return {

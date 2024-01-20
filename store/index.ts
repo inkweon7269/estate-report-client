@@ -3,9 +3,11 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { userApi } from '@/store/apis/userApi';
 import { areaApi } from '@/store/apis/areaApi';
 import { reportApi } from '@/store/apis/reportApi';
+import { authReducer } from '@/store/slices/authSlice';
 
 const store = configureStore({
     reducer: {
+        auth: authReducer,
         [userApi.reducerPath]: userApi.reducer,
         [areaApi.reducerPath]: areaApi.reducer,
         [reportApi.reducerPath]: reportApi.reducer,
@@ -24,3 +26,5 @@ const store = configureStore({
 setupListeners(store.dispatch);
 
 export { store };
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;

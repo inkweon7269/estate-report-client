@@ -1,27 +1,19 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import configs from '@/config';
 import { getCookie } from 'cookies-next';
+import baseQueryWithReAuth from '@/store/apis/apiSlice';
 
 const userApi = createApi({
-    reducerPath: 'auth',
-    baseQuery: fetchBaseQuery({
-        baseUrl: configs.baseUrl,
-        prepareHeaders: (headers, { getState }) => {
-            const token = getCookie("esToken");
-            if (token) {
-                headers.set("authorization", `Bearer ${token}`);
-            }
-            return headers;
-        },
-    }),
+    reducerPath: 'user',
+    baseQuery: baseQueryWithReAuth,
     tagTypes: ['User'],
     endpoints(build) {
         return {
             login: build.mutation({
                 query: (body) => {
                     return {
-                        url: "/v1/user/login",
-                        method: "POST",
+                        url: '/v1/user/login',
+                        method: 'POST',
                         body,
                     };
                 },
@@ -29,26 +21,26 @@ const userApi = createApi({
             join: build.mutation({
                 query: (body) => {
                     return {
-                        url: "/v1/user/join",
-                        method: "POST",
+                        url: '/v1/user/join',
+                        method: 'POST',
                         body,
                     };
                 },
             }),
             profile: build.query({
                 providesTags: (result, error, id) => {
-                    return [{ type: "User" }];
+                    return [{ type: 'User' }];
                 },
                 query: () => {
                     return {
                         url: `/v1/user/profile`,
-                        method: "GET",
+                        method: 'GET',
                     };
                 },
             }),
-        }
-    }
-})
+        };
+    },
+});
 
 export const { useLoginMutation, useJoinMutation, useProfileQuery } = userApi;
-export { userApi }
+export { userApi };

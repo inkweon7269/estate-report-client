@@ -11,6 +11,8 @@ import { USER_SCHEMA } from '@/schemas';
 import { LoginType } from '@/types';
 import LoginWrap from '@/components/organisms/LoginWrap';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@/store/slices/authSlice';
 
 const { Title } = Typography;
 
@@ -28,10 +30,13 @@ const Index = () => {
     const { handleSubmit } = form;
 
     const [login] = useLoginMutation();
+    const dispatch = useDispatch();
+
     const onSubmit: SubmitHandler<LoginType> = async (body) => {
         try {
-            const data = await login(body).unwrap();
-            await setCookie('esToken', data.token);
+            const userData = await login(body).unwrap();
+            console.log(userData);
+            dispatch(setCredentials({ ...userData }));
             await message.success('로그인되었습니다.');
             await router.push('/report');
         } catch (e: any) {
@@ -65,7 +70,7 @@ export default Index;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const allCookies = cookies(context);
-    const token = allCookies.esToken;
+    const token = allCookies.accessToken;
 
     if (token) {
         return {

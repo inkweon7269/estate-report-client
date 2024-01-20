@@ -167,7 +167,7 @@ export default Detail;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const allCookies = cookies(context);
-    const token = allCookies.esToken;
+    const token = allCookies.accessToken;
     const id = context.params?.id;
 
     if (!token) {
