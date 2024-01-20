@@ -59,7 +59,7 @@ const reportApi = apiSlice.injectEndpoints({
         addLike: builder.mutation({
             query: (body) => {
                 return {
-                    url: `/v1/like`,
+                    url: `/v1/report/like`,
                     method: 'POST',
                     body,
                 };
@@ -69,7 +69,7 @@ const reportApi = apiSlice.injectEndpoints({
         deleteLike: builder.mutation({
             query: (body) => {
                 return {
-                    url: `/v1/like`,
+                    url: `/v1/report/like`,
                     method: 'DELETE',
                     body,
                 };
