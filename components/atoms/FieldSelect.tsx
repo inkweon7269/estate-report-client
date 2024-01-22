@@ -1,11 +1,11 @@
 import { CSSProperties, ReactNode } from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { Select } from 'antd';
 
 export interface IPropsSelect {
     label?: string;
     name: string;
-    control: any;
+    control: Control | Control<any>;
     placeholder?: string;
     options: { value: string | number | boolean | null; label: string | ReactNode; disabled?: boolean }[];
     style?: CSSProperties;

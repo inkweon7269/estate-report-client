@@ -1,12 +1,12 @@
 import React, { CSSProperties } from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { Input } from 'antd';
 const { TextArea } = Input;
 
 export interface IPropsTextArea {
     label?: string;
     name: string;
-    control: any;
+    control: Control | Control<any>;
     placeholder?: string;
     style?: CSSProperties;
 }

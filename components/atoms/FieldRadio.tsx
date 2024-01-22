@@ -1,11 +1,11 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { Radio } from 'antd';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 
 export interface IPropsRadio {
     label?: string;
     name: string;
-    control: any;
+    control: Control | Control<any>;
     options: { value: string | number; label: string | ReactNode; disabled?: boolean }[];
     style?: CSSProperties;
 }

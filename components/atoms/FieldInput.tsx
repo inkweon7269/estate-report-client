@@ -1,11 +1,11 @@
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Control, Controller } from 'react-hook-form';
 import { Input } from 'antd';
 
 export interface IPropsInput {
     label?: string;
     name: string;
-    control: any;
+    control: Control | Control<any>;
     type?: string;
     placeholder?: string;
 }
