@@ -3,6 +3,10 @@ import { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'atoms/FieldErrorMsg',
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
     component: FieldErrorMsg,
 } satisfies Meta<typeof FieldErrorMsg>;
 
