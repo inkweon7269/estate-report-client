@@ -18,7 +18,8 @@ describe('테스트 훅(hook)', () => {
         const homePage = new HomePage();
         const productPage = new Product();
 
-        cy.visit('https://rahulshettyacademy.com/angularpractice');
+        const baseUrl = Cypress.env('url');
+        cy.visit(`${baseUrl}/angularpractice/`);
 
         homePage.getEditBox().type(globalThis.data.name);
         homePage.getGender().select(globalThis.data.gender);

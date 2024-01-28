@@ -5,6 +5,10 @@ export default defineConfig({
     viewportHeight: 1080,
     numTestsKeptInMemory: 1,
     experimentalMemoryManagement: true,
+    defaultCommandTimeout: 6000,
+    env: {
+        url: 'https://rahulshettyacademy.com',
+    },
     e2e: {
         baseUrl: 'http://localhost:3000',
         experimentalStudio: true,
