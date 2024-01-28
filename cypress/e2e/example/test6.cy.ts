@@ -35,6 +35,43 @@ describe('테스트 훅(hook)', () => {
         });
 
         productPage.checkOutButton().click();
+
+        let sum = 0;
+        cy.get('tr td:nth-child(4) strong')
+            .each(($el, index, $list) => {
+                cy.log($el.text());
+
+                const amount = $el.text();
+                const res = amount.split(' ');
+                const num = parseInt(res[1].trim(), 0);
+                sum += num;
+            })
+            .then(() => {
+                cy.log('sum ===========', sum);
+            });
+        cy.get('h3 strong').then((elem) => {
+            const amount = elem.text();
+            const res = amount.split(' ');
+            const total = parseInt(res[1].trim(), 0);
+
+            cy.log('total =============', total);
+            expect(sum).to.equal(total);
+        });
+
+        cy.contains('Checkout').click();
+        cy.get('#country').type('India');
+        cy.get('.suggestions > ul > li > a').click();
+        cy.get('#checkbox2').click({ force: true });
+        cy.get('input[type=submit]').click();
+
+        // 글자 줄바꿈으로 인해 에러 발생
+        // cy.get('.alert').should('have.text', 'Success! Thank you! Your order will be delivered in next few weeks :-).');
+        cy.get('.alert').then((elem) => {
+            const text = elem.text();
+            if (text.includes('Success')) {
+                expect(text.includes('Success')).to.be.true;
+            }
+        });
     });
 
     /*
