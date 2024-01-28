@@ -20,7 +20,8 @@ describe('테스트 훅(hook)', () => {
         cy.get('#inlineRadio3').should('be.disabled');
 
         cy.get(':nth-child(2) > .nav-link').click();
-        cy.selectProduct('BlackBerry');
+        cy.selectProduct('Blackberry');
+        cy.selectProduct('Nokia Edge');
     });
 
     /*
