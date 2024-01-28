@@ -36,6 +36,7 @@
 //   }
 // }
 
+/*
 declare namespace Cypress {
     interface Chainable {
         loginToApplication(): void;
@@ -47,4 +48,19 @@ Cypress.Commands.add('loginToApplication', () => {
     cy.get('[name="email"]').type('in12@test.com');
     cy.get('[name="password"]').type('xptmxm1!');
     cy.get('form').submit();
+});
+*/
+
+declare namespace Cypress {
+    interface Chainable {
+        selectProduct(productName: string): void;
+    }
+}
+
+Cypress.Commands.add('selectProduct', (productName) => {
+    cy.get('h4.card-title').each(($el, index, $list) => {
+        if ($el.text().includes(productName)) {
+            cy.get('button.btn.btn-info').eq(index).click();
+        }
+    });
 });
