@@ -9,6 +9,9 @@ export default defineConfig({
     env: {
         url: 'https://rahulshettyacademy.com',
     },
+    retries: {
+        runMode: 1,
+    },
     e2e: {
         baseUrl: 'http://localhost:3000',
         experimentalStudio: true,
