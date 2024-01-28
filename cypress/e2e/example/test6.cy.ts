@@ -1,3 +1,6 @@
+import HomePage from '@/cypress/e2e/pageObjects/HomePage';
+import Product from '@/cypress/e2e/pageObjects/Product';
+
 describe('테스트 훅(hook)', () => {
     /*
         before()
@@ -12,16 +15,26 @@ describe('테스트 훅(hook)', () => {
     });
 
     it('Form', function () {
-        cy.visit('https://rahulshettyacademy.com/angularpractice');
-        cy.get('input[name=name]:nth-child(2)').type(globalThis.data.name);
-        cy.get('select').select(globalThis.data.gender);
-        cy.get(':nth-child(4) > .ng-untouched').should('have.value', globalThis.data.name);
-        cy.get('input[name=name]:nth-child(2)').should('have.attr', 'minlength', '2');
-        cy.get('#inlineRadio3').should('be.disabled');
+        const homePage = new HomePage();
+        const productPage = new Product();
 
-        cy.get(':nth-child(2) > .nav-link').click();
-        cy.selectProduct('Blackberry');
-        cy.selectProduct('Nokia Edge');
+        cy.visit('https://rahulshettyacademy.com/angularpractice');
+
+        homePage.getEditBox().type(globalThis.data.name);
+        homePage.getGender().select(globalThis.data.gender);
+        homePage.getTwoWayDataBinding().should('have.value', globalThis.data.name);
+        homePage.getEditBox().should('have.attr', 'minlength', '2');
+        homePage.getEntrepreneaur().should('be.disabled');
+
+        // pause() : 테스트를 일시 중지 이후 디버깅 기능 활성화 (console 탭에서 확인 가능)
+        // cy.pause();
+        homePage.getShopTab().click();
+
+        globalThis.data.productName.forEach((item) => {
+            cy.selectProduct(item);
+        });
+
+        productPage.checkOutButton().click();
     });
 
     /*
