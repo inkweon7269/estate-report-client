@@ -30,4 +30,45 @@ describe('Cypress Etc.', () => {
             expect(user.email).to.equal('in@example.com');
         });
     });
+
+    // 스크롤
+    it.skip('Scroll into footer view', () => {
+        cy.visit('https://practice-automation.com/');
+        cy.get('footer').scrollIntoView();
+    });
+
+    // 파일 업로드
+    it.skip('Upload File', () => {
+        cy.visit('https://the-internet.herokuapp.com/upload');
+        cy.get('#file-upload').selectFile('cypress/fixtures/example.json');
+        cy.get('#file-submit').click();
+
+        cy.get('h3').should('be.visible');
+    });
+
+    // Type & Clear
+    it.skip('Type and Clear', () => {
+        cy.visit('https://practice-automation.com/form-fields/');
+        cy.get('#feedbackForm #name').type('12345');
+        cy.wait(2000);
+        cy.get('#feedbackForm #name').clear().type('new Text');
+    });
+
+    // Invoke : 래핑된 객체에서 특정 함수를 호출한다.
+    it.skip('Invoke calculation of numbers', () => {
+        const fn = (a: number, b: number, c: number) => {
+            return a + b + c;
+        };
+
+        cy.wrap({ sum: fn }).invoke('sum', 2, 5, 10).should('be.greaterThan', 10).and('be.lessThan', 20);
+    });
+
+    // 테이블 제어
+    it('Data Tables', () => {
+        cy.visit('https://practice-automation.com/tables/');
+        cy.get('.wp-block-table').within(() => {
+            cy.get('td').eq(0).should('contain', 'Item');
+            cy.get('td').eq(1).should('contain', 'Price');
+        });
+    });
 });
