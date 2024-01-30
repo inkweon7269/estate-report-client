@@ -64,7 +64,7 @@ describe('Cypress Etc.', () => {
     });
 
     // 테이블 제어
-    it('Data Tables', () => {
+    it('Data Tables', { retries: 3 }, () => {
         cy.visit('https://practice-automation.com/tables/');
         cy.get('.wp-block-table').within(() => {
             cy.get('td').eq(0).should('contain', 'Item');
