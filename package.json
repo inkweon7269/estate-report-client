@@ -52,6 +52,7 @@
     "@types/styled-components": "^5.1.30",
     "cypress": "^13.5.1",
     "cypress-iframe": "^1.0.1",
+    "cypress-mochawesome-reporter": "^3.8.1",
     "eslint-plugin-storybook": "^0.6.15",
     "storybook": "^7.6.10"
   }

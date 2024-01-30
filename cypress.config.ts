@@ -12,6 +12,8 @@ export default defineConfig({
     retries: {
         runMode: 1,
     },
+
+    reporter: 'cypress-mochawesome-reporter',
     e2e: {
         baseUrl: 'http://localhost:3000',
         experimentalStudio: true,
@@ -19,6 +21,7 @@ export default defineConfig({
         specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
         setupNodeEvents(on, config) {
             // implement node event listeners here
+            require('cypress-mochawesome-reporter/plugin')(on);
         },
     },
 });
