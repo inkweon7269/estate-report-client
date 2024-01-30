@@ -68,7 +68,7 @@ describe('Cypress Etc.', () => {
         cy.visit('https://practice-automation.com/tables/');
         cy.get('.wp-block-table').within(() => {
             cy.get('td').eq(0).should('contain', 'Item');
-            cy.get('td').eq(1).should('contain', 'aaa');
+            cy.get('td').eq(1).should('contain', 'Price');
         });
     });
 });
