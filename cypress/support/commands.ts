@@ -55,6 +55,26 @@ declare namespace Cypress {
     interface Chainable {
         selectProduct(productName: string): void;
         LoginAPI(): any;
+
+        /**
+         * Navigates to the home page of our application
+         */
+        visitHomepage(): Chainable<Element>;
+
+        /**
+         * Navigates to the login page of our application
+         */
+        visitLoginpage(): Chainable<Element>;
+
+        /**
+         * Navigates to the feedback page of our application
+         */
+        visitFeedbackpage(): Chainable<Element>;
+
+        /**
+         * @param seconds - how many seconds should the execution wait
+         */
+        waitForSeconds(seconds: number): Chainable<Element>;
     }
 }
 
@@ -74,4 +94,20 @@ Cypress.Commands.add('LoginAPI', () => {
         expect(response.status).to.eq(200);
         Cypress.env('token', response.body.token);
     });
+});
+
+Cypress.Commands.add('visitHomepage', () => {
+    cy.visit('https://www.example.com');
+});
+
+Cypress.Commands.add('visitLoginpage', () => {
+    cy.visit('http://zero.webappsecurity.com/login.html');
+});
+
+Cypress.Commands.add('visitFeedbackpage', () => {
+    cy.visit('http://zero.webappsecurity.com/feedback.html');
+});
+
+Cypress.Commands.add('waitForSeconds', (seconds) => {
+    cy.wait(seconds * 1000);
 });
