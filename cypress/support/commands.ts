@@ -141,7 +141,6 @@ Cypress.Commands.add('isVisible', (selector) => {
     cy.get(selector).should('be.visible');
 });
 
-// http://zero.webappsecurity.com/index.html
 Cypress.Commands.add('isHidden', (selector) => {
     cy.get(selector).should('not.exist');
 });

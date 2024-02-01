@@ -6,6 +6,15 @@ export default defineConfig({
     numTestsKeptInMemory: 1,
     experimentalMemoryManagement: true,
     defaultCommandTimeout: 6000,
+
+    watchForFileChanges: false,
+    waitForAnimations: true,
+    animationDistanceThreshold: 20,
+    execTimeout: 60000,
+    pageLoadTimeout: 60000,
+    requestTimeout: 15000,
+    responseTimeout: 15000,
+
     env: {
         url: 'https://rahulshettyacademy.com',
     },
@@ -18,6 +27,7 @@ export default defineConfig({
         baseUrl: 'http://localhost:3000',
         experimentalStudio: true,
         chromeWebSecurity: false,
+        testIsolation: false,
         specPattern: 'cypress/e2e/**/*.{js,jsx,ts,tsx}',
         setupNodeEvents(on, config) {
             // implement node event listeners here
