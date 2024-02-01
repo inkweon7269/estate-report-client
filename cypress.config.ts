@@ -1,8 +1,8 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-    viewportWidth: 1920,
-    viewportHeight: 1080,
+    viewportWidth: 1000,
+    viewportHeight: 600,
     numTestsKeptInMemory: 1,
     experimentalMemoryManagement: true,
     defaultCommandTimeout: 6000,

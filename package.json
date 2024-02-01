@@ -24,6 +24,7 @@
     "axios": "^1.6.2",
     "cookies-next": "^4.0.0",
     "cross-env": "^7.0.3",
+    "cypress-image-snapshot": "^4.0.1",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.2",
     "neat-csv": "^7.0.0",

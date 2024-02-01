@@ -75,6 +75,31 @@ declare namespace Cypress {
          * @param seconds - how many seconds should the execution wait
          */
         waitForSeconds(seconds: number): Chainable<Element>;
+
+        /**
+         *
+         * @param selector - Visible Selector
+         */
+        isVisible(selector: string): Chainable<Element>;
+
+        /**
+         *
+         * @param selector - Hidden Selector
+         */
+        isHidden(selector: string): Chainable<Element>;
+
+        /**
+         *
+         * @param size
+         */
+        setResolution(size: any): Chainable<Element>;
+
+        /**
+         *
+         * @param username
+         * @param password
+         */
+        login(username: string, password: string): Chainable<Element>;
     }
 }
 
@@ -110,4 +135,29 @@ Cypress.Commands.add('visitFeedbackpage', () => {
 
 Cypress.Commands.add('waitForSeconds', (seconds) => {
     cy.wait(seconds * 1000);
+});
+
+Cypress.Commands.add('isVisible', (selector) => {
+    cy.get(selector).should('be.visible');
+});
+
+// http://zero.webappsecurity.com/index.html
+Cypress.Commands.add('isHidden', (selector) => {
+    cy.get(selector).should('not.exist');
+});
+
+Cypress.Commands.add('setResolution', (size) => {
+    if (Cypress._.isArray(size)) {
+        cy.viewport(size[0], size[1]);
+    } else {
+        cy.viewport(size);
+    }
+});
+
+Cypress.Commands.add('login', (username, password) => {
+    cy.get('#login_form').should('be.visible');
+    cy.get('#user_login').type(username);
+    cy.get('#user_password').type(password);
+    cy.get('#user_remember_me').click();
+    cy.contains('Sign in').click();
 });
