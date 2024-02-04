@@ -7,7 +7,7 @@ export default defineConfig({
     experimentalMemoryManagement: true,
     defaultCommandTimeout: 6000,
 
-    watchForFileChanges: false,
+    watchForFileChanges: true,
     waitForAnimations: true,
     animationDistanceThreshold: 20,
     execTimeout: 60000,
@@ -21,7 +21,6 @@ export default defineConfig({
     retries: {
         runMode: 1,
     },
-
     reporter: 'cypress-mochawesome-reporter',
     e2e: {
         baseUrl: 'http://localhost:3000',

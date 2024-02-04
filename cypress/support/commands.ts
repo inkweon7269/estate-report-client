@@ -35,42 +35,8 @@
 //     }
 //   }
 // }
-
-/*
 declare namespace Cypress {
     interface Chainable {
-        loginToApplication(): void;
-    }
-}
-
-Cypress.Commands.add('loginToApplication', () => {
-    cy.visit('/');
-    cy.get('[name="email"]').type('in12@test.com');
-    cy.get('[name="password"]').type('xptmxm1!');
-    cy.get('form').submit();
-});
-*/
-
-declare namespace Cypress {
-    interface Chainable {
-        selectProduct(productName: string): void;
-        LoginAPI(): any;
-
-        /**
-         * Navigates to the home page of our application
-         */
-        visitHomepage(): Chainable<Element>;
-
-        /**
-         * Navigates to the login page of our application
-         */
-        visitLoginpage(): Chainable<Element>;
-
-        /**
-         * Navigates to the feedback page of our application
-         */
-        visitFeedbackpage(): Chainable<Element>;
-
         /**
          * @param seconds - how many seconds should the execution wait
          */
@@ -87,51 +53,8 @@ declare namespace Cypress {
          * @param selector - Hidden Selector
          */
         isHidden(selector: string): Chainable<Element>;
-
-        /**
-         *
-         * @param size
-         */
-        setResolution(size: any): Chainable<Element>;
-
-        /**
-         *
-         * @param username
-         * @param password
-         */
-        login(username: string, password: string): Chainable<Element>;
     }
 }
-
-Cypress.Commands.add('selectProduct', (productName) => {
-    cy.get('h4.card-title').each(($el, index, $list) => {
-        if ($el.text().includes(productName)) {
-            cy.get('button.btn.btn-info').eq(index).click();
-        }
-    });
-});
-
-Cypress.Commands.add('LoginAPI', () => {
-    cy.request('POST', 'https://rahulshettyacademy.com/api/ecom/auth/login', {
-        userEmail: 'anshika@gmail.com',
-        userPassword: 'Iamking@000',
-    }).then(function (response) {
-        expect(response.status).to.eq(200);
-        Cypress.env('token', response.body.token);
-    });
-});
-
-Cypress.Commands.add('visitHomepage', () => {
-    cy.visit('https://www.example.com');
-});
-
-Cypress.Commands.add('visitLoginpage', () => {
-    cy.visit('http://zero.webappsecurity.com/login.html');
-});
-
-Cypress.Commands.add('visitFeedbackpage', () => {
-    cy.visit('http://zero.webappsecurity.com/feedback.html');
-});
 
 Cypress.Commands.add('waitForSeconds', (seconds) => {
     cy.wait(seconds * 1000);
@@ -143,20 +66,4 @@ Cypress.Commands.add('isVisible', (selector) => {
 
 Cypress.Commands.add('isHidden', (selector) => {
     cy.get(selector).should('not.exist');
-});
-
-Cypress.Commands.add('setResolution', (size) => {
-    if (Cypress._.isArray(size)) {
-        cy.viewport(size[0], size[1]);
-    } else {
-        cy.viewport(size);
-    }
-});
-
-Cypress.Commands.add('login', (username, password) => {
-    cy.get('#login_form').should('be.visible');
-    cy.get('#user_login').type(username);
-    cy.get('#user_password').type(password);
-    cy.get('#user_remember_me').click();
-    cy.contains('Sign in').click();
 });

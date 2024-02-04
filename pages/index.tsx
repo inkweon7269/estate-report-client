@@ -31,8 +31,8 @@ const Index = () => {
     const onSubmit: SubmitHandler<LoginType> = async (body) => {
         try {
             await login(body).unwrap();
-            await message.success('로그인되었습니다.');
             await router.push('/report');
+            await message.success('로그인되었습니다.');
         } catch (e: any) {
             message.warning(e.data.message);
         }
