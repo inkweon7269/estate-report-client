@@ -7,7 +7,7 @@ export default defineConfig({
     experimentalMemoryManagement: true,
     defaultCommandTimeout: 6000,
 
-    watchForFileChanges: true,
+    watchForFileChanges: false,
     waitForAnimations: true,
     animationDistanceThreshold: 20,
     execTimeout: 60000,

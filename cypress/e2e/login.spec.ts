@@ -1,6 +1,7 @@
 import LoginPage from '@/cypress/page-objects/pages/LoginPage';
+import BasePage from '@/cypress/page-objects/BasePage';
 
-describe('로그인 실패 테스트', () => {
+describe('로그인 실패', () => {
     before(() => {
         cy.clearCookies();
         const url = 'http://localhost:3000/';
@@ -12,11 +13,11 @@ describe('로그인 실패 테스트', () => {
     });
 
     it('로그인 실패 안내', () => {
-        LoginPage.displayErrorMessage();
+        BasePage.displayErrorMsg();
     });
 });
 
-describe('로그인 성공 테스트', () => {
+describe('로그인 성공', () => {
     before(() => {
         cy.clearCookies();
         const url = 'http://localhost:3000/';
@@ -30,6 +31,6 @@ describe('로그인 성공 테스트', () => {
     });
 
     it('로그인 성공 안내', () => {
-        LoginPage.displaySuccessMessage();
+        BasePage.displaySuccessMsg();
     });
 });
